@@ -5,7 +5,7 @@ CREATE TABLE IF NOT EXISTS User_Detail (
     last_Name VARCHAR(50) NOT NULL,
     email VARCHAR(62) NOT NULL UNIQUE,
     pass_hash VARCHAR(128) NOT NULL,
-    is_Active VARCHAR DEFAULT 'true'
+    is_Active BOOLEAN DEFAULT TRUE
 );
 
 CREATE TABLE IF NOT EXISTS Job_Application_Status (
