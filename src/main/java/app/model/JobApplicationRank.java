@@ -1,10 +1,14 @@
 package app.model;
 import javax.persistence.*;
 
+import lombok.Builder;
+
 @Entity
+@Builder
 @Table(name = "job_application_rank")
 public class JobApplicationRank {
 
+	@Id
 	@Column(name = "job_application_id")
 	private long jobApplicationId;
 	

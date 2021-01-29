@@ -1,12 +1,15 @@
 package app.model;
 import javax.persistence.*;
 
+import lombok.Builder;
+
 @Entity
+@Builder
 @Table(name = "job_application")
 public class JobApplication {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	
 	@Column(name = "company_name")
@@ -33,14 +36,12 @@ public class JobApplication {
 	@Column(name = "status_id")
 	private long statusId;
 	
-	@Column(name = "resume_id")
-	private long resumeId;
 
 	@Override
 	public String toString() {
 		return "JobApplication [id=" + id + ", companyName=" + companyName + ", positionApplied=" + positionApplied
 				+ ", apsName=" + apsName + ", notes=" + notes + ", jobDescription=" + jobDescription + ", dateApplied="
-				+ dateApplied + ", userId=" + userId + ", statusId=" + statusId + ", resumeId=" + resumeId + "]";
+				+ dateApplied + ", userId=" + userId + ", statusId=" + statusId + "]";
 	}
 
 	public long getId() {
@@ -114,19 +115,11 @@ public class JobApplication {
 	public void setStatusId(long statusId) {
 		this.statusId = statusId;
 	}
-
-	public long getResumeId() {
-		return resumeId;
-	}
-
-	public void setResumeId(long resumeId) {
-		this.resumeId = resumeId;
-	}
 	
 	public JobApplication() {}
 
 	public JobApplication(long id, String companyName, String positionApplied, String apsName, String notes,
-			String jobDescription, long dateApplied, long userId, long statusId, long resumeId) {
+			String jobDescription, long dateApplied, long userId, long statusId) {
 		super();
 		this.id = id;
 		this.companyName = companyName;
@@ -137,7 +130,6 @@ public class JobApplication {
 		this.dateApplied = dateApplied;
 		this.userId = userId;
 		this.statusId = statusId;
-		this.resumeId = resumeId;
 	}
 	
 	

@@ -5,6 +5,10 @@ import javax.persistence.*;
 @Table(name = "user_job_application_status")
 public class UserJobApplicationStatus {
 	
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private long id;
+	
 	@Column(name = "user_id")
 	private long userId;
 	
@@ -13,9 +17,17 @@ public class UserJobApplicationStatus {
 
 	@Override
 	public String toString() {
-		return "UserJobApplicationStatus [userId=" + userId + ", statusId=" + statusId + "]";
+		return "UserJobApplicationStatus [id=" + id + ", userId=" + userId + ", statusId=" + statusId + "]";
 	}
 
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+	
 	public long getUserId() {
 		return userId;
 	}
