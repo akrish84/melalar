@@ -14,6 +14,7 @@ CREATE TABLE IF NOT EXISTS Job_Application_Status (
 );
 
 CREATE TABLE IF NOT EXISTS User_Job_Application_Status (
+    id SERIAL NOT NULL PRIMARY KEY,
     user_id INTEGER REFERENCES user_detail (id) ON DELETE CASCADE,
     status_Id INTEGER REFERENCES job_application_status (id) ON DELETE CASCADE   
 );
@@ -34,11 +35,15 @@ CREATE TABLE IF NOT EXISTS Job_Application (
     job_description VARCHAR(5000),
     date_applied BIGINT,
     user_id INTEGER REFERENCES user_detail(id) ON DELETE CASCADE,
-    status_Id INTEGER REFERENCES job_application_status(id) ON DELETE CASCADE,
-    resume_id INTEGER REFERENCES job_resume(id) ON DELETE CASCADE  
+    status_Id INTEGER REFERENCES job_application_status(id) ON DELETE CASCADE
  ); 
 
  CREATE TABLE IF NOT EXISTS Job_Application_Rank (
      job_application_id INTEGER REFERENCES job_application(id) ON DELETE CASCADE,
      rank INTEGER NOT NULL
+ );
+
+ CREATE TABLE IF NOT EXISTS Job_Application_Resume (
+     job_application_id INTEGER REFERENCES Job_Application(id) ON DELETE CASCADE,
+     resume_id INTEGER REFERENCES Job_Resume(id) ON DELETE CASCADE
  );
