@@ -1,5 +1,7 @@
 package app.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,4 +18,8 @@ public class JobApplicationRankService {
 		jobApplicationRankRepository.save(jobApplicationRank);
 	}
 
+	public List<JobApplicationRank> getJobApplicationsRank(List<Long> jobApplicationIds) {
+		return jobApplicationRankRepository.findByJobApplicationIdIn(jobApplicationIds);
+	}
+	
 }

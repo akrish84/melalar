@@ -10,7 +10,6 @@ public class JobApplicationRequest {
 	private String jobDescription;
 	private long dateApplied;
 	private long statusId;
-	private int rank;
 	
 	@Override
 	public String toString() {
@@ -82,13 +81,4 @@ public class JobApplicationRequest {
 	public void setStatusId(long statusId) {
 		this.statusId = statusId;
 	}
-
-	public int getRank() {
-		return rank;
-	}
-
-	public void setRank(int rank) {
-		this.rank = rank;
-	}
-
 }
