@@ -6,7 +6,7 @@ import javax.persistence.*;
 public class JobResume {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	
 	@Column(name = "file_name")
