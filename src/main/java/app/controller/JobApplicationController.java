@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import app.model.JobApplication;
-import app.requestresponsemodel.JobApplicationRequest;
-import app.requestresponsemodel.JobApplicationResponse;
+import app.model.requestresponse.JobApplicationRequest;
+import app.model.requestresponse.JobApplicationResponse;
 import app.service.JobApplicationService;
 
 @RestController

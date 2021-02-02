@@ -1,4 +1,4 @@
-package app.requestresponsemodel;
+package app.model.requestresponse;
 
 public class JobApplicationResponse {
 	
