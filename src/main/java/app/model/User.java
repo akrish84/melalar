@@ -2,6 +2,8 @@ package app.model;
 
 import javax.persistence.*;
 
+import lombok.Builder;
+
 @Entity
 @Table(name = "user_detail")
 public class User {
