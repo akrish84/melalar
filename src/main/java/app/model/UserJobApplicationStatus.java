@@ -12,12 +12,12 @@ public class UserJobApplicationStatus {
 	@Column(name = "user_id")
 	private long userId;
 	
-	@Column(name = "status_id")
-	private long statusId;
+	@Column(name = "status_name")
+	private long statusName;
 
 	@Override
 	public String toString() {
-		return "UserJobApplicationStatus [id=" + id + ", userId=" + userId + ", statusId=" + statusId + "]";
+		return "UserJobApplicationStatus [id=" + id + ", userId=" + userId + ", statusName=" + statusName + "]";
 	}
 
 	public long getId() {
@@ -27,7 +27,7 @@ public class UserJobApplicationStatus {
 	public void setId(long id) {
 		this.id = id;
 	}
-	
+
 	public long getUserId() {
 		return userId;
 	}
@@ -36,19 +36,20 @@ public class UserJobApplicationStatus {
 		this.userId = userId;
 	}
 
-	public long getStatusId() {
-		return statusId;
+	public long getStatusName() {
+		return statusName;
 	}
 
-	public void setStatusId(long statusId) {
-		this.statusId = statusId;
+	public void setStatusName(long statusName) {
+		this.statusName = statusName;
 	}
 
 	public UserJobApplicationStatus() {}
 
-	public UserJobApplicationStatus(long userId, long statusId) {
+	public UserJobApplicationStatus(long id, long userId, long statusName) {
 		super();
+		this.id = id;
 		this.userId = userId;
-		this.statusId = statusId;
+		this.statusName = statusName;
 	}
 }

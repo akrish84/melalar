@@ -9,22 +9,18 @@ CREATE TABLE IF NOT EXISTS User_Detail (
     is_Active BOOLEAN DEFAULT TRUE
 );
 
-CREATE TABLE IF NOT EXISTS Job_Application_Status (
-    id SERIAL NOT NULL PRIMARY KEY,
-    status_name VARCHAR(50) NOT NULL
-);
-
 CREATE TABLE IF NOT EXISTS User_Job_Application_Status (
     id SERIAL NOT NULL PRIMARY KEY,
     user_id INTEGER REFERENCES user_detail (id) ON DELETE CASCADE,
-    status_Id INTEGER REFERENCES job_application_status (id) ON DELETE CASCADE   
+    status_name VARCHAR(50) NOT NULL UNIQUE  
 );
 
 CREATE TABLE IF NOT EXISTS Job_Resume (
     id SERIAL NOT NULL PRIMARY KEY,
+    user_id INTEGER REFERENCES user_detail(id) ON DELETE CASCADE,
     file_name VARCHAR(50) NOT NULL,
     file_path VARCHAR(1000) NOT NULL,
-    file_hash VARCHAR(1000) NOT NULL
+    file_hash VARCHAR(1000) NOT NULL UNIQUE
 );
 
 CREATE TABLE IF NOT EXISTS Job_Application (
@@ -36,7 +32,7 @@ CREATE TABLE IF NOT EXISTS Job_Application (
     job_description VARCHAR(5000),
     date_applied BIGINT,
     user_id INTEGER REFERENCES user_detail(id) ON DELETE CASCADE,
-    status_Id INTEGER REFERENCES job_application_status(id) ON DELETE CASCADE
+    status_Id INTEGER REFERENCES user_job_application_status(id) ON DELETE CASCADE
  ); 
 
  CREATE TABLE IF NOT EXISTS Job_Application_Rank (

@@ -5,6 +5,6 @@ insert into User_Detail (first_name, last_name, email, pass_hash, is_active) val
 insert into User_Detail (first_name, last_name, email, pass_hash, is_active) values ('atit', 'gaonkar', 'test3@test.com', 'test', 'true')  on conflict do nothing;
 
 
-insert into job_application_status(status_name) values('applied');
-insert into job_application_status(status_name) values('coding round');
-insert into job_application_status(status_name) values('wishlist');
+insert into user_job_application_status(user_id, status_name) values(1,'applied') on conflict do nothing;
+insert into user_job_application_status(user_id, status_name) values(1,'coding round') on conflict do nothing;
+insert into user_job_application_status(user_id, status_name) values(1,'wishlist') on conflict do nothing;

@@ -9,6 +9,9 @@ public class JobResume {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	
+	@Column(name = "user_id")
+	private long user_id;
+	
 	@Column(name = "file_name")
 	private String fileName;
 	
@@ -20,8 +23,8 @@ public class JobResume {
 
 	@Override
 	public String toString() {
-		return "JobResume [id=" + id + ", fileName=" + fileName + ", filePath=" + filePath + ", fileHash=" + fileHash
-				+ "]";
+		return "JobResume [id=" + id + ", user_id=" + user_id + ", fileName=" + fileName + ", filePath=" + filePath
+				+ ", fileHash=" + fileHash + "]";
 	}
 
 	public long getId() {
@@ -56,15 +59,26 @@ public class JobResume {
 		this.fileHash = fileHash;
 	}
 	
+	public long getUser_id() {
+		return user_id;
+	}
+
+	public void setUser_id(long user_id) {
+		this.user_id = user_id;
+	}
+
 	public JobResume() {}
 
-	public JobResume(long id, String fileName, String filePath, String fileHash) {
+	public JobResume(long id, long user_id, String fileName, String filePath, String fileHash) {
 		super();
 		this.id = id;
+		this.user_id = user_id;
 		this.fileName = fileName;
 		this.filePath = filePath;
 		this.fileHash = fileHash;
 	}
+
+	
 	
 	
 }
