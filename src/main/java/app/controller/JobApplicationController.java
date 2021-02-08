@@ -3,6 +3,7 @@ package app.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -12,6 +13,7 @@ import app.exceptions.BadRequestException;
 import app.exceptions.UnauthorizedException;
 import app.model.JobApplication;
 import app.model.JobApplicationRank;
+import app.model.authentication.UserDetail;
 import app.model.requestresponse.JobApplicationAddRequest;
 import app.model.requestresponse.JobApplicationAddResponse;
 import app.model.requestresponse.JobApplicationUpdateRequest;
@@ -24,14 +26,15 @@ public class JobApplicationController {
 	@Autowired
 	private JobApplicationService jobApplicationService;
 
-	@PostMapping("/jobapplication")
-	public ResponseEntity<JobApplicationAddResponse> addJob(@RequestBody JobApplicationAddRequest jobApplicationRequest) {
+	@PostMapping("/jobApplication")
+	public ResponseEntity<JobApplicationAddResponse> addJob(@RequestBody JobApplicationAddRequest jobApplicationRequest,
+			@AuthenticationPrincipal UserDetail userDetail) {
 		try {
 			Validator.defaultValueCheck(jobApplicationRequest.getUserId(), "User Id");
 			Validator.defaultValueCheck(jobApplicationRequest.getStatusId(), "Status Id");
 			Validator.defaultValueCheck(jobApplicationRequest.getDateApplied(), "Date Applied Id");
 			Validator.emptyValueCheck(jobApplicationRequest.getCompanyName(), "Company Name");
-			Validator.loggedInUserCheck(jobApplicationRequest.getUserId());
+			Validator.loggedInUserCheck(jobApplicationRequest.getUserId(), userDetail);
 
 			JobApplication jobApplication = JobApplication.builder()
 					.companyName(jobApplicationRequest.getCompanyName())
@@ -79,7 +82,8 @@ public class JobApplicationController {
 	}
 	
 	@PutMapping("/jobapplication")
-	public ResponseEntity<JobApplicationUpdateResponse> updateJob(@RequestBody JobApplicationUpdateRequest jobApplicationUpdateRequest) {
+	public ResponseEntity<JobApplicationUpdateResponse> updateJob(@RequestBody JobApplicationUpdateRequest jobApplicationUpdateRequest,
+			@AuthenticationPrincipal UserDetail userDetail) {
 		try {
 			
 			Validator.defaultValueCheck(jobApplicationUpdateRequest.getUserId(), "User Id");
@@ -87,7 +91,7 @@ public class JobApplicationController {
 			Validator.defaultValueCheck(jobApplicationUpdateRequest.getDateApplied(), "Date Applied Id");
 			Validator.defaultValueCheck(jobApplicationUpdateRequest.getRank(), "Rank Id");
 			Validator.emptyValueCheck(jobApplicationUpdateRequest.getCompanyName(), "Company Name");
-			Validator.loggedInUserCheck(jobApplicationUpdateRequest.getUserId());
+			Validator.loggedInUserCheck(jobApplicationUpdateRequest.getUserId(), userDetail);
 
 			
 			JobApplication jobApplication = JobApplication.builder()

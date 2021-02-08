@@ -1,6 +1,8 @@
 package app.controller;
 
 import app.exceptions.BadRequestException;
+import app.exceptions.UnauthorizedException;
+import app.model.authentication.UserDetail;
 
 public class Validator {
 
@@ -28,12 +30,11 @@ public class Validator {
 		}
 	}
 
-	public static void loggedInUserCheck(long userId) throws BadRequestException {
-		// Temporary fix for testing until authentication module is completed.
-//		if(userId != loggedInUser()) {
-//			throw new UnauthorizedException("User with id: " + userId + " is not loggedin.");
-//		}
+	public static void loggedInUserCheck(long userId, UserDetail userDetail) throws BadRequestException {
+		
+		if( userId != userDetail.getUserId()) {
+			throw new UnauthorizedException("The userId " + userId +" is not authenticated");
+		}
 		return;
 	}
-
 }

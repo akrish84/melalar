@@ -15,6 +15,7 @@ public class UserDetail implements UserDetails {
 	private String email;
 	private String password;
 	private boolean isActive;
+	private long userId;
 
 	public UserDetail() {}
 
@@ -22,6 +23,7 @@ public class UserDetail implements UserDetails {
 		this.email = user.get().getEmail();
 		this.password = user.get().getPassHash();
 		this.isActive = user.get().isActive();
+		this.userId = user.get().getId();
 	}
 	
 //	Might have to add authorities based on user roles.
@@ -59,6 +61,10 @@ public class UserDetail implements UserDetails {
 	@Override
 	public boolean isEnabled() {
 		return isActive;
+	}
+	
+	public long getUserId() {
+		return userId;
 	}
 
 }

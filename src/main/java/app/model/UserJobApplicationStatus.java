@@ -13,7 +13,7 @@ public class UserJobApplicationStatus {
 	private long userId;
 	
 	@Column(name = "status_name")
-	private long statusName;
+	private String statusName;
 
 	@Override
 	public String toString() {
@@ -36,17 +36,17 @@ public class UserJobApplicationStatus {
 		this.userId = userId;
 	}
 
-	public long getStatusName() {
+	public String getStatusName() {
 		return statusName;
 	}
 
-	public void setStatusName(long statusName) {
+	public void setStatusName(String statusName) {
 		this.statusName = statusName;
 	}
 
 	public UserJobApplicationStatus() {}
 
-	public UserJobApplicationStatus(long id, long userId, long statusName) {
+	public UserJobApplicationStatus(long id, long userId, String statusName) {
 		super();
 		this.id = id;
 		this.userId = userId;
