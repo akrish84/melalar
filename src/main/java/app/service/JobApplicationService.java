@@ -36,12 +36,12 @@ public class JobApplicationService {
 		int maxRank = 0;
 		int currentJobApplicationRank = 0;
 		
-		
-
 		Optional<List<JobApplicationRank>> jobApplicationRankList = jobApplicationRankService.getJobApplicationRankListByUserIdAndStatusId(jobApplication.getUserId(), jobApplication.getStatusId());
 
-		for (JobApplicationRank jobApplicationRank : jobApplicationRankList.get()) {
-			maxRank = Math.max(maxRank, jobApplicationRank.getRank());
+		if(jobApplicationRankList.isPresent()) {
+			for (JobApplicationRank jobApplicationRank : jobApplicationRankList.get()) {
+				maxRank = Math.max(maxRank, jobApplicationRank.getRank());
+			}
 		}
 
 		currentJobApplicationRank = maxRank + 1;
