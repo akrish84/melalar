@@ -1,31 +1,44 @@
 package app.controller;
 
+import java.util.List;
+
 import app.exceptions.BadRequestException;
-import app.exceptions.UnauthorizedException;
+import app.exceptions.ForbiddenException;
 import app.model.authentication.UserDetail;
 
 public class Validator {
 
 	public static void nullCheck(Object object, String paramName) throws BadRequestException {
-		if (object == null) {
+		
+		if( object == null) {
 			throw new BadRequestException(paramName + " cannot be null");
 		}
 	}
 
 	public static void emptyValueCheck(String object, String paramName) throws BadRequestException {
-		if (object == null || object.isEmpty()) {
+		
+		if( object == null || object.isEmpty()) {
+			throw new BadRequestException(paramName + " cannot be empty");
+		}
+	}
+
+	public static void emptyListCheck(List items, String paramName) throws BadRequestException {
+		
+		if( items == null || items.size() == 0) {
 			throw new BadRequestException(paramName + " cannot be empty");
 		}
 	}
 
 	public static void defaultValueCheck(Integer number, String paramName) throws BadRequestException {
+		
 		if (number == null || number == 0) {
 			throw new BadRequestException(paramName + " cannot have value 0");
 		}
 	}
 
 	public static void defaultValueCheck(Long number, String paramName) throws BadRequestException {
-		if (number == null || number == 0) {
+		
+		if( number == null || number == 0) {
 			throw new BadRequestException(paramName + " cannot have value 0");
 		}
 	}
@@ -33,8 +46,8 @@ public class Validator {
 	public static void loggedInUserCheck(long userId, UserDetail userDetail) throws BadRequestException {
 		
 		if( userId != userDetail.getUserId()) {
-			throw new UnauthorizedException("The userId " + userId +" is not authenticated");
+			throw new ForbiddenException("The userId " + userId +" is not authenticated");
 		}
-		return;
 	}
+	
 }

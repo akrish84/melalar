@@ -16,5 +16,5 @@ public class UserJobApplicationStatusService {
 	
 	public List<UserJobApplicationStatus> getStatusesForUser(long userId) {
 		return userJobApplicationStatusRepository.findByUserId(userId);
-	}	
+	}
 }

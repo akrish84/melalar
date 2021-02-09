@@ -9,4 +9,5 @@ import app.model.UserJobApplicationStatus;
 public interface UserJobApplicationStatusRepository extends CrudRepository<UserJobApplicationStatus, Long> {
 
 	public List<UserJobApplicationStatus> findByUserId(long userId);
+	
 }

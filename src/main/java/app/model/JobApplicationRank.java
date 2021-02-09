@@ -6,7 +6,7 @@ import lombok.Builder;
 @Entity
 @Builder
 @Table(name = "job_application_rank")
-public class JobApplicationRank {
+public class JobApplicationRank implements Comparable<JobApplicationRank> {
 
 	@Id
 	@Column(name = "job_application_id")
@@ -42,6 +42,36 @@ public class JobApplicationRank {
 		super();
 		this.jobApplicationId = jobApplicationId;
 		this.rank = rank;
+	}
+
+	@Override
+	public int compareTo(JobApplicationRank o) {
+		return Integer.compare(this.rank, o.getRank());
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + (int) (jobApplicationId ^ (jobApplicationId >>> 32));
+		result = prime * result + rank;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		JobApplicationRank other = (JobApplicationRank) obj;
+		if (jobApplicationId != other.jobApplicationId)
+			return false;
+		if (rank != other.rank)
+			return false;
+		return true;
 	}
 	
 }

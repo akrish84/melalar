@@ -1,13 +1,14 @@
 package app.service;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import app.exceptions.ObjectNotFoundException;
 import app.model.JobApplication;
 import app.model.JobApplicationRank;
 import app.repository.JobApplicationRepository;
@@ -34,24 +35,17 @@ public class JobApplicationService {
 
 		int maxRank = 0;
 		int currentJobApplicationRank = 0;
-		List<Long> userJobApplicationIds = new ArrayList<>();
-		List<JobApplicationRank> jobApplicationsRank;
-		List<JobApplication> jobApplicationsByUserIdAndStatusId = jobApplicationRepository.findByUserIdAndStatusId(jobApplication.getUserId(), jobApplication.getStatusId());
+		
+		
 
-		if(jobApplicationsByUserIdAndStatusId.size() > 0) {
-			for (JobApplication filteredJobApplication : jobApplicationsByUserIdAndStatusId) {
-				userJobApplicationIds.add(filteredJobApplication.getId());
-			}
-	
-			jobApplicationsRank = jobApplicationRankService.getJobApplicationsRank(userJobApplicationIds);
-	
-			for (JobApplicationRank jobApplicationRank : jobApplicationsRank) {
-				maxRank = Math.max(maxRank, jobApplicationRank.getRank());
-			}
+		Optional<List<JobApplicationRank>> jobApplicationRankList = jobApplicationRankService.getJobApplicationRankListByUserIdAndStatusId(jobApplication.getUserId(), jobApplication.getStatusId());
+
+		for (JobApplicationRank jobApplicationRank : jobApplicationRankList.get()) {
+			maxRank = Math.max(maxRank, jobApplicationRank.getRank());
 		}
 
 		currentJobApplicationRank = maxRank + 1;
-
+		
 		JobApplication addedJobApplication = jobApplicationRepository.save(jobApplication);
 
 		JobApplicationRank jobApplicationRank = JobApplicationRank.builder()
@@ -61,6 +55,12 @@ public class JobApplicationService {
 
 		return addedJobApplication;
 	}
+	
+	public void updateJobApplication(JobApplication jobApplication) {
+		jobApplicationRepository.save(jobApplication);
+	}
 
-
+	public Optional<JobApplication> getJobApplication(long jobApplicationId){
+		return jobApplicationRepository.findById(jobApplicationId);
+	}
 }
