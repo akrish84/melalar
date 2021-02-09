@@ -1,5 +1,7 @@
 package app.adapter;
 
+import java.util.Arrays;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -9,6 +11,9 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 @EnableWebSecurity
 public class SecurityConfigurationAdapter extends WebSecurityConfigurerAdapter{
@@ -26,6 +31,7 @@ public class SecurityConfigurationAdapter extends WebSecurityConfigurerAdapter{
 //	Add roles to different users and permit them accordingly.
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
+		http.csrf().disable();
 		http.authorizeRequests().antMatchers("/user").hasAnyRole("ADMIN", "USER")
 		.antMatchers("/admin").permitAll()
 		.antMatchers("/").permitAll()
@@ -36,4 +42,5 @@ public class SecurityConfigurationAdapter extends WebSecurityConfigurerAdapter{
     public PasswordEncoder getPasswordEncoder() {
         return NoOpPasswordEncoder.getInstance();
     }
+
 }
