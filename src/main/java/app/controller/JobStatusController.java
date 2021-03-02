@@ -23,7 +23,7 @@ public class JobStatusController {
 	@Autowired
 	private UserJobApplicationStatusService userJobApplicationStatusService;
 	
-	@GetMapping("/jobStatus")
+	@GetMapping("/jobStatuses")
 	public @ResponseBody ResponseEntity<List<UserJobApplicationStatusResponse>> getStatuses(@RequestParam long userId, 
 			@AuthenticationPrincipal UserDetail userDetail){
 		

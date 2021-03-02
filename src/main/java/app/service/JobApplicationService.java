@@ -63,4 +63,8 @@ public class JobApplicationService {
 	public Optional<JobApplication> getJobApplication(long jobApplicationId){
 		return jobApplicationRepository.findById(jobApplicationId);
 	}
+	
+	public List<JobApplication> getJobApplications(long userId){
+		return jobApplicationRepository.findByUserId(userId);
+	}
 }

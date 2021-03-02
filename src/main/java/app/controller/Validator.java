@@ -2,9 +2,11 @@ package app.controller;
 
 import java.util.List;
 
-import app.exceptions.BadRequestException;
-import app.exceptions.ForbiddenException;
+import javax.ws.rs.BadRequestException;
+import javax.ws.rs.ForbiddenException;
+
 import app.model.authentication.UserDetail;
+
 
 public class Validator {
 
@@ -22,7 +24,7 @@ public class Validator {
 		}
 	}
 
-	public static void emptyListCheck(List items, String paramName) throws BadRequestException {
+	public static void emptyListCheck(List<?> items, String paramName) throws BadRequestException {
 		
 		if( items == null || items.size() == 0) {
 			throw new BadRequestException(paramName + " cannot be empty");
@@ -44,8 +46,10 @@ public class Validator {
 	}
 
 	public static void loggedInUserCheck(long userId, UserDetail userDetail) throws BadRequestException {
-		
-		if( userId != userDetail.getUserId()) {
+		if(userDetail == null) {
+			throw new javax.ws.rs.NotAuthorizedException("Not Authenticated");
+		}
+		if(userId != userDetail.getUserId()) {
 			throw new ForbiddenException("The userId " + userId +" is not authenticated");
 		}
 	}
