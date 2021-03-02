@@ -14,6 +14,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @EnableWebSecurity
 public class SecurityConfigurationAdapter extends WebSecurityConfigurerAdapter{
@@ -31,7 +33,7 @@ public class SecurityConfigurationAdapter extends WebSecurityConfigurerAdapter{
 //	Add roles to different users and permit them accordingly.
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.csrf().disable();
+		http.cors().and().csrf().disable();
 		http.authorizeRequests().antMatchers("/user").hasAnyRole("ADMIN", "USER")
 		.antMatchers("/admin").permitAll()
 		.antMatchers("/").permitAll()
@@ -42,5 +44,15 @@ public class SecurityConfigurationAdapter extends WebSecurityConfigurerAdapter{
     public PasswordEncoder getPasswordEncoder() {
         return NoOpPasswordEncoder.getInstance();
     }
+		
+	@Bean
+	CorsConfigurationSource corsConfigurationSource() {
+		CorsConfiguration configuration = new CorsConfiguration();
+		configuration.setAllowedOrigins(Arrays.asList("http://localhost:3000"));
+		configuration.setAllowedMethods(Arrays.asList("GET","POST","PUT"));
+		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+		source.registerCorsConfiguration("/**", configuration);
+		return source;
+	}
 
 }
