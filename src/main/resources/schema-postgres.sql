@@ -44,3 +44,8 @@ CREATE TABLE IF NOT EXISTS Job_Application (
      job_application_id INTEGER REFERENCES Job_Application(id) ON DELETE CASCADE,
      resume_id INTEGER REFERENCES Job_Resume(id) ON DELETE CASCADE
  );
+
+
+ ALTER TABLE user_job_application_status ADD COLUMN rank INTEGER;
+
+ ALTER TABLE user_job_application_status DROP CONSTRAINT user_job_application_status_status_name_key;

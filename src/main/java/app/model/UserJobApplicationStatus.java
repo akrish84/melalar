@@ -1,7 +1,10 @@
 package app.model;
 import javax.persistence.*;
 
+import lombok.Builder;
+
 @Entity
+@Builder
 @Table(name = "user_job_application_status")
 public class UserJobApplicationStatus {
 	
@@ -14,11 +17,10 @@ public class UserJobApplicationStatus {
 	
 	@Column(name = "status_name")
 	private String statusName;
+	
+	@Column(name = "rank")
+	private int rank;
 
-	@Override
-	public String toString() {
-		return "UserJobApplicationStatus [id=" + id + ", userId=" + userId + ", statusName=" + statusName + "]";
-	}
 
 	public long getId() {
 		return id;
@@ -43,13 +45,22 @@ public class UserJobApplicationStatus {
 	public void setStatusName(String statusName) {
 		this.statusName = statusName;
 	}
+	
+	public int getRank() {
+		return rank;
+	}
+	
+	public void setRank(int rank) {
+		this.rank = rank;
+	}
 
 	public UserJobApplicationStatus() {}
 
-	public UserJobApplicationStatus(long id, long userId, String statusName) {
+	public UserJobApplicationStatus(long id, long userId, String statusName, int rank) {
 		super();
 		this.id = id;
 		this.userId = userId;
 		this.statusName = statusName;
+		this.rank = rank;
 	}
 }
